@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Geospatial Mashup - Bogor Edition</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        #map {
+            width: 100%;
+            height: 600px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <script>
+        // --- 1. Inisialisasi Peta (Pusat: Kebun Raya Bogor) ---
+        // Koordinat Bogor sekitar: -6.5971, 106.7985
+        var mymap = L.map('map').setView([-6.5971, 106.7985], 14);
+
+        // --- 2. Basemap OpenStreetMap ---
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(mymap);
+
+        // --- 3. Marker (Contoh: Balai Kota Bogor) ---
+        var marker = L.marker([-6.5948, 106.7947]).addTo(mymap);
+        marker.bindPopup('<b>Balai Kota Bogor</b><br>Pusat pemerintahan kota.');
+
+        // --- 4. Circle (Contoh: Radius di sekitar Lapangan Sempur) ---
+        var circle = L.circle([-6.5898, 106.7972], {
+            color: '#FF1493', 
+            fillColor: '#FFC0CB',
+            fillOpacity: 0.5, 
+            radius: 300 // Radius 300 meter
+        }).addTo(mymap);
+        circle.bindPopup('Area Sekitar Lapangan Sempur');
+
+        // --- 5. Polygon (Contoh: Area Kebun Raya Bogor) ---
+        var polygon = L.polygon([
+            [-6.5945, 106.7975],
+            [-6.6060, 106.7985],
+            [-6.6045, 106.8045],
+            [-6.5970, 106.8060]
+        ], { 
+            color: '#2E8B58', 
+            fillColor: '#00FF7F', 
+            fillOpacity: 0.3 
+        }).addTo(mymap);
+        polygon.bindPopup('Kawasan Kebun Raya Bogor');
+
+        // --- 6. Polyline (Contoh: Jalur sepanjang Jl. Pajajaran) ---
+        var polyline = L.polyline([
+            [-6.5885, 106.8065],
+            [-6.6000, 106.8075],
+            [-6.6110, 106.8090]
+        ], { 
+            color: '#FF0000', 
+            weight: 5, 
+            opacity: 0.8 
+        }).addTo(mymap);
+        polyline.bindPopup('Jalur Utama Jl. Raya Pajajaran');
+    </script>
+</body>
+
+</html>
